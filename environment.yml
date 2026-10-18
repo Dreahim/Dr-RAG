@@ -1,0 +1,10 @@
+name: dr-rag
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.14.8
+  - pip
+  - uv=0.13.1
+  - pip:
+      - -r requirements.txt
