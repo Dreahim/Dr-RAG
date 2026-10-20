@@ -9,6 +9,7 @@ license-files = ["LICENSE"]
 authors = [{ name = "Dreahim" }]
 dependencies = [
     "fastapi==0.145.0",
+    "python-dotenv==1.2.4",
     "python-multipart==0.0.32",
     "uvicorn[standard]==0.54.0",
 ]

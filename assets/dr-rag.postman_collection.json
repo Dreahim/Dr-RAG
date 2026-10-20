@@ -6,17 +6,36 @@
   },
   "item": [
     {
-      "name": "Welcome",
+      "name": "Application information",
       "request": {
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{base_url}}/welcome",
+          "raw": "{{base_url}}/api/v1/",
           "host": [
             "{{base_url}}"
           ],
           "path": [
-            "welcome"
+            "api",
+            "v1",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Users",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/users",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "users"
           ]
         }
       },

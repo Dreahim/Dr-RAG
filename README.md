@@ -1,7 +1,7 @@
 # Dr-RAG
 
 A retrieval-augmented generation project for document-based question answering.
-The current version provides a small FastAPI application with a welcome endpoint.
+The current version organizes its first API endpoints with FastAPI routers.
 
 ## Prerequisites
 
@@ -42,11 +42,12 @@ uvicorn main:app --reload --host 127.0.0.1 --port 5000
 
 Open these URLs after the server starts:
 
-- Welcome endpoint: <http://127.0.0.1:5000/welcome>
+- Application information: <http://127.0.0.1:5000/api/v1/>
+- Users placeholder: <http://127.0.0.1:5000/users>
 - Interactive API documentation: <http://127.0.0.1:5000/docs>
 
-The Postman collection in `assets/dr-rag.postman_collection.json` contains the
-same welcome request.
+The Postman collection in `assets/dr-rag.postman_collection.json` contains both
+requests.
 
 ## Configuration
 
@@ -58,7 +59,7 @@ Edit `.env` for local settings. Keep this file out of Git.
 
 ## Dependencies
 
-`requirements.txt` lists the three pinned application dependencies. pip resolves
+`requirements.txt` lists the four pinned application dependencies. pip resolves
 their compatible dependencies during installation.
 
 ## License

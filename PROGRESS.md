@@ -3,15 +3,17 @@
 ## Project setup
 
 - Created the `dr-rag` Conda environment on Ubuntu WSL.
-- Pinned Python and the three direct application dependencies.
+- Pinned Python and the direct application dependencies.
 - Added the configuration template and assets directory.
 - Added Git ignore rules.
 
 ## FastAPI application
 
 - Added the FastAPI application entry point.
-- Added `GET /welcome` as the first API endpoint.
-- Added a Postman collection for the welcome request.
+- Organized endpoints in separate route modules.
+- Added application metadata at `GET /api/v1/`.
+- Added the placeholder `GET /users` endpoint.
+- Updated the Postman collection for both routes.
 
 ## Dependencies
 
@@ -21,6 +23,7 @@
 | FastAPI | 0.145.0 |
 | Uvicorn | 0.54.0 |
 | python-multipart | 0.0.32 |
+| python-dotenv | 1.2.4 |
 | uv | 0.13.1 |
 
 ## Validation
@@ -29,10 +32,11 @@
 - The setup command tested in a fresh Conda environment.
 - Configuration defaults and Git ignore rules checked.
 - Repository contents reviewed for credentials.
-- Application import, startup, welcome response, and OpenAPI schema checked on WSL.
+- Application imports, live startup, endpoint responses, documentation, and OpenAPI schema checked on WSL.
+- Versioned routing, environment-backed metadata, and removal of the old welcome route checked on WSL.
 
 Native Windows execution has not been validated.
 
 ## Next
 
-Organize the API with versioned routing. Not started.
+Move the application into a source directory and add the initial upload workflow. Not started.
