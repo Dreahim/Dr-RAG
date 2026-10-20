@@ -1,8 +1,7 @@
 # Dr-RAG
 
 A retrieval-augmented generation project for document-based question answering.
-This version prepares the development environment. There is no application to run
-yet.
+The current version provides a small FastAPI application with a welcome endpoint.
 
 ## Prerequisites
 
@@ -32,6 +31,22 @@ python -c "import fastapi, uvicorn, python_multipart; print('Setup successful')"
 ```
 
 You should see `Setup successful`.
+
+## Run the application
+
+Start the development server:
+
+```bash
+uvicorn main:app --reload --host 127.0.0.1 --port 5000
+```
+
+Open these URLs after the server starts:
+
+- Welcome endpoint: <http://127.0.0.1:5000/welcome>
+- Interactive API documentation: <http://127.0.0.1:5000/docs>
+
+The Postman collection in `assets/dr-rag.postman_collection.json` contains the
+same welcome request.
 
 ## Configuration
 

@@ -7,6 +7,12 @@
 - Added the configuration template and assets directory.
 - Added Git ignore rules.
 
+## FastAPI application
+
+- Added the FastAPI application entry point.
+- Added `GET /welcome` as the first API endpoint.
+- Added a Postman collection for the welcome request.
+
 ## Dependencies
 
 | Package | Version |
@@ -23,9 +29,10 @@
 - The setup command tested in a fresh Conda environment.
 - Configuration defaults and Git ignore rules checked.
 - Repository contents reviewed for credentials.
+- Application import, startup, welcome response, and OpenAPI schema checked on WSL.
 
 Native Windows execution has not been validated.
 
 ## Next
 
-Add the FastAPI application and welcome endpoint. Not started.
+Organize the API with versioned routing. Not started.

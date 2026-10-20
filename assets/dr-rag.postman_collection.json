@@ -1,0 +1,33 @@
+{
+  "info": {
+    "_postman_id": "be0ef794-70b2-4fd9-aefd-dc3897343667",
+    "name": "Dr-RAG",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Welcome",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/welcome",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "welcome"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    }
+  ]
+}
