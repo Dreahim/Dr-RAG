@@ -40,12 +40,48 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Upload document",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": []
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/data/upload/{{project_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "data",
+            "upload",
+            "{{project_id}}"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "variable": [
     {
       "key": "base_url",
       "value": "http://127.0.0.1:5000",
+      "type": "string"
+    },
+    {
+      "key": "project_id",
+      "value": "demo",
       "type": "string"
     }
   ]

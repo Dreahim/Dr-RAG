@@ -22,6 +22,7 @@ condaenv.*.requirements.txt
 .mypy_cache/
 .coverage
 htmlcov/
+src/assets/files/
 
 # Local editor and operating system files
 .idea/

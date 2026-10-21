@@ -1,3 +1,5 @@
+"""Placeholder users endpoint."""
+
 from fastapi import APIRouter
 
 router = APIRouter()
