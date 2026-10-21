@@ -37,17 +37,20 @@ async def upload_data(
 
     for _ in range(5):
         file_path: Path | None = None
+        file_created = False
         try:
             file_path, file_id = controller.generate_unique_file_name(
                 file.filename, project_id
             )
             size = 0
             async with aiofiles.open(file_path, "xb") as destination:
+                file_created = True
                 while chunk := await file.read(settings.FILE_DEFAULT_CHUNK_SIZE):
                     size += len(chunk)
                     if size > settings.max_file_size_bytes:
                         raise UploadTooLarge
                     await destination.write(chunk)
+            file_created = False
             return {
                 "signal": ResponseSignal.FILE_UPLOAD_SUCCESS.value,
                 "file_id": file_id,
@@ -55,8 +58,6 @@ async def upload_data(
         except FileExistsError:
             continue
         except UploadTooLarge:
-            if file_path is not None:
-                file_path.unlink(missing_ok=True)
             return JSONResponse(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 content={
@@ -65,10 +66,14 @@ async def upload_data(
                 },
             )
         except OSError:
-            if file_path is not None:
-                file_path.unlink(missing_ok=True)
             logger.exception("Could not save the uploaded file")
             break
+        finally:
+            if file_created and file_path is not None:
+                try:
+                    file_path.unlink(missing_ok=True)
+                except OSError:
+                    logger.exception("Could not remove an incomplete upload")
 
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

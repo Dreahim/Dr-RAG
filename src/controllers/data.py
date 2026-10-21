@@ -36,4 +36,11 @@ class DataController(BaseController):
         """Remove path components and unsafe filename characters."""
         name = (original_file_name or "").replace("\\", "/").rsplit("/", 1)[-1]
         cleaned = re.sub(r"[^\w.-]+", "_", name.strip()).strip("._")
-        return cleaned[:180] or "upload"
+        suffix = Path(cleaned).suffix
+        if len(suffix.encode("utf-8")) > 32:
+            suffix = ""
+        stem = cleaned[:-len(suffix)] if suffix else cleaned
+        # Filesystems limit encoded filename bytes, not Unicode characters.
+        budget = 180 - len(suffix.encode("utf-8"))
+        stem = stem.encode("utf-8")[:budget].decode("utf-8", errors="ignore")
+        return (stem or "upload") + suffix

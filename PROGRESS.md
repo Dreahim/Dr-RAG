@@ -20,6 +20,7 @@
 - Moved the application modules into `src/` and kept setup files at the repository root.
 - Added project-specific local storage for text and PDF uploads.
 - Added configurable file limits, chunked writes, safe names, and upload response signals.
+- Limited stored filename bytes while preserving extensions for long Unicode names.
 - Expanded the Postman collection and README with an upload example.
 
 ## Dependencies
