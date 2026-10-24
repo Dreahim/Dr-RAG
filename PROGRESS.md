@@ -23,6 +23,14 @@
 - Limited stored filename bytes while preserving extensions for long Unicode names.
 - Expanded the Postman collection and README with an upload example.
 
+## Document processing
+
+- Added `ProcessController` with loader selection, document loading, and text splitting.
+- Used `PyMuPDFLoader` for PDFs and `TextLoader` for UTF-8 text files.
+- Added the processing request schema, file-type enum, and processing endpoint.
+- Preserved document metadata when creating recursive character chunks.
+- Kept chunks in memory and added a processing request to the Postman collection.
+
 ## Dependencies
 
 | Package | Version |
@@ -34,6 +42,10 @@
 | python-dotenv | 1.2.4 |
 | aiofiles | 25.1.0 |
 | pydantic-settings | 2.15.0 |
+| langchain-community | 0.4.2 |
+| langchain-core | 1.6.12 |
+| langchain-text-splitters | 1.1.3 |
+| PyMuPDF | 1.28.2 |
 | uv | 0.13.1 |
 
 ## Validation
@@ -45,9 +57,16 @@
 - Application imports, live startup, endpoint responses, documentation, and OpenAPI schema checked on WSL.
 - Versioned routing, environment-backed metadata, and removal of the old welcome route checked on WSL.
 - Upload endpoint, file storage, validation, and existing routes checked on WSL.
+- All 21 temporary upload and processing checks passed on WSL, including PDF
+  metadata, UTF-8 text, chunk overlap, invalid files, and project containment.
+- Password-protected PDFs are rejected before calling the document loader.
+- Pinned dependency checks, Python compilation, lint, and formatting passed.
+
+`langchain-community` is archived. Its final stable release is pinned for the
+document loaders; no database or model integration is included.
 
 Native Windows execution has not been validated.
 
 ## Next
 
-Document ingestion and later retrieval work have not started.
+Database integration and retrieval have not started.

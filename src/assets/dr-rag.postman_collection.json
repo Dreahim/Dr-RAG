@@ -71,6 +71,41 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Process document",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"file_id\": \"{{file_id}}\",\n  \"chunk_size\": 100,\n  \"overlap_size\": 20\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/data/process/{{project_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "data",
+            "process",
+            "{{project_id}}"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "variable": [
@@ -82,6 +117,11 @@
     {
       "key": "project_id",
       "value": "demo",
+      "type": "string"
+    },
+    {
+      "key": "file_id",
+      "value": "",
       "type": "string"
     }
   ]
