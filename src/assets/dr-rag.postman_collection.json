@@ -25,23 +25,6 @@
       "response": []
     },
     {
-      "name": "Users",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{base_url}}/users",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "users"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "Upload document",
       "request": {
         "method": "POST",
@@ -84,7 +67,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"file_id\": \"{{file_id}}\",\n  \"chunk_size\": 100,\n  \"overlap_size\": 20\n}",
+          "raw": "{\n  \"file_id\": \"{{file_id}}\",\n  \"chunk_size\": 100,\n  \"overlap_size\": 20,\n  \"do_reset\": 0\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -103,7 +86,44 @@
             "process",
             "{{project_id}}"
           ]
-        }
+        },
+        "description": "Process the asset ID returned by upload within the same project. do_reset=1 deletes every existing chunk for that project."
+      },
+      "response": []
+    },
+    {
+      "name": "Process all documents",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"chunk_size\": 100,\n  \"overlap_size\": 20,\n  \"do_reset\": 0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/data/process/{{project_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "data",
+            "process",
+            "{{project_id}}"
+          ]
+        },
+        "description": "Process all registered files. do_reset=1 deletes every existing chunk for the project."
       },
       "response": []
     }
@@ -122,7 +142,8 @@
     {
       "key": "file_id",
       "value": "",
-      "type": "string"
+      "type": "string",
+      "description": "MongoDB asset ID returned by upload."
     }
   ]
 }

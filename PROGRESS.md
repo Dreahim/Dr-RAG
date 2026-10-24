@@ -29,7 +29,7 @@
 - Used `PyMuPDFLoader` for PDFs and `TextLoader` for UTF-8 text files.
 - Added the processing request schema, file-type enum, and processing endpoint.
 - Preserved document metadata when creating recursive character chunks.
-- Kept chunks in memory and added a processing request to the Postman collection.
+- Initially returned chunks in memory and added a processing request to Postman.
 
 ## MongoDB service
 
@@ -39,6 +39,17 @@
 - Added a credential template; local credentials remain ignored by Git.
 - Documented startup, authentication, and persistent storage.
 - Kept application integration and chunk persistence for a later stage.
+
+## Persistent document ingestion
+
+- Connected the API to MongoDB using PyMongo's asynchronous client and FastAPI lifespan.
+- Added project, asset, and chunk schemas, persistence models, and collection indexes.
+- Registered uploads as assets and used their database IDs for targeted processing.
+- Added processing for every registered file in a project.
+- Stored chunk text, metadata, order, and project/asset references in MongoDB.
+- Kept append behavior and an explicit project-wide reset option.
+- Validated selected documents before reset and handled database/write failures.
+- Removed the unused users route and updated the README and Postman collection.
 
 ## Dependencies
 
@@ -55,33 +66,30 @@
 | langchain-core | 1.6.12 |
 | langchain-text-splitters | 1.1.3 |
 | PyMuPDF | 1.28.2 |
+| PyMongo | 4.19.0 |
 | uv | 0.13.1 |
 | MongoDB | 8.0.34 |
 
 ## Validation
 
-- Dependency compatibility and imports checked on WSL.
-- The setup command tested in a fresh Conda environment.
-- Configuration defaults and Git ignore rules checked.
-- Repository contents reviewed for credentials.
-- Application imports, live startup, endpoint responses, documentation, and OpenAPI schema checked on WSL.
-- Versioned routing, environment-backed metadata, and removal of the old welcome route checked on WSL.
-- Upload endpoint, file storage, validation, and existing routes checked on WSL.
-- All 21 temporary upload and processing checks passed on WSL, including PDF
-  metadata, UTF-8 text, chunk overlap, invalid files, and project containment.
-- Password-protected PDFs are rejected before calling the document loader.
-- Pinned dependency checks, Python compilation, lint, and formatting passed.
-- MongoDB Compose configuration and required credentials checked on WSL.
-- Authenticated access, rejection of invalid credentials and unauthenticated
-  writes, local port binding, and persistent storage verified with Docker.
-- A temporary record survived container replacement; verification data was removed.
-- All 21 application regression checks passed again with Python dependencies unchanged.
+- Dependency pins, pip compatibility, Python compilation, lint, and formatting checked on WSL.
+- All 19 temporary integration checks passed using a separate database and upload directory.
+- Live startup with reload, API responses, OpenAPI, Swagger, and shutdown checked.
+- Real rejected credentials prevented startup, and the async client closed on failure.
+- Verified indexes on existing collections, concurrent project creation, pagination,
+  asset uniqueness, and chunk insertion across multiple batches.
+- Verified PDF metadata, UTF-8 text, character overlap, and long Unicode filenames.
+- Verified single/all-file selection, append behavior, reset scope, and project containment.
+- Invalid, empty, missing, or encrypted files were rejected without deleting existing chunks.
+- Injected database and write failures checked upload cleanup and partial-write responses.
+- Data survived API restart; the MongoDB service previously passed container-replacement checks.
+- Temporary verification data was removed; no test suite is included in the repository.
 
 `langchain-community` is archived. Its final stable release is pinned for the
-document loaders; no application-to-database or model integration is included.
+document loaders. PyMongo provides database access; LLM integration has not started.
 
 Native Windows execution has not been validated.
 
 ## Next
 
-Database integration and retrieval have not started.
+Embeddings, vector indexing, and retrieval have not started.

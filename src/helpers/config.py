@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     FILE_MAX_SIZE_MB: int = Field(default=10, gt=0)
     FILE_DEFAULT_CHUNK_SIZE: int = Field(default=512000, gt=0)
     FILE_STORAGE_DIR: Path = PROJECT_ROOT / "src" / "assets" / "files"
+    MONGODB_URL: str = Field(min_length=1, repr=False)
+    MONGODB_DB_NAME: str = Field(default="dr-rag", pattern=r"^[A-Za-z0-9_-]+$")
 
     @property
     def allowed_file_types(self) -> frozenset[str]:
