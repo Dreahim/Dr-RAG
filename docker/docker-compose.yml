@@ -1,0 +1,21 @@
+name: dr-rag
+
+services:
+  mongodb:
+    image: mongo:8.0.34-noble
+    ports:
+      - "127.0.0.1:27038:27017"
+    volumes:
+      - mongodata:/data/db
+    networks:
+      - backend
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:?Set MONGO_INITDB_ROOT_USERNAME in docker/.env}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:?Set MONGO_INITDB_ROOT_PASSWORD in docker/.env}
+
+networks:
+  backend:
+
+volumes:
+  mongodata:

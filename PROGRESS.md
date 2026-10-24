@@ -31,6 +31,15 @@
 - Preserved document metadata when creating recursive character chunks.
 - Kept chunks in memory and added a processing request to the Postman collection.
 
+## MongoDB service
+
+- Added a MongoDB service managed by Docker Compose.
+- Pinned the server image to `mongo:8.0.34-noble`.
+- Used a separate Compose project, network, named volume, and local port 27038.
+- Added a credential template; local credentials remain ignored by Git.
+- Documented startup, authentication, and persistent storage.
+- Kept application integration and chunk persistence for a later stage.
+
 ## Dependencies
 
 | Package | Version |
@@ -47,6 +56,7 @@
 | langchain-text-splitters | 1.1.3 |
 | PyMuPDF | 1.28.2 |
 | uv | 0.13.1 |
+| MongoDB | 8.0.34 |
 
 ## Validation
 
@@ -61,9 +71,14 @@
   metadata, UTF-8 text, chunk overlap, invalid files, and project containment.
 - Password-protected PDFs are rejected before calling the document loader.
 - Pinned dependency checks, Python compilation, lint, and formatting passed.
+- MongoDB Compose configuration and required credentials checked on WSL.
+- Authenticated access, rejection of invalid credentials and unauthenticated
+  writes, local port binding, and persistent storage verified with Docker.
+- A temporary record survived container replacement; verification data was removed.
+- All 21 application regression checks passed again with Python dependencies unchanged.
 
 `langchain-community` is archived. Its final stable release is pinned for the
-document loaders; no database or model integration is included.
+document loaders; no application-to-database or model integration is included.
 
 Native Windows execution has not been validated.
 

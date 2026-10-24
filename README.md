@@ -8,6 +8,7 @@ into chunks.
 
 - Git
 - Conda (Miniconda or Anaconda), available in your terminal
+- Docker with Compose, for the MongoDB service
 
 Setup has been tested on Ubuntu in WSL. The commands below use a WSL terminal.
 
@@ -85,6 +86,50 @@ must use UTF-8. Image-only PDFs need OCR, which is not included.
 Chunk size and overlap are measured in characters. The defaults are 100 and 20;
 size must be positive, and overlap must be nonnegative and smaller than size.
 Chunks are returned in memory without saving them or creating embeddings.
+
+## MongoDB
+
+Install and start Docker with the Compose plugin. If you use Docker Desktop
+with WSL, enable integration for your Ubuntu distribution.
+
+From the repository root:
+
+```bash
+cd docker
+cp .env.example .env
+```
+
+Set `MONGO_INITDB_ROOT_USERNAME` and `MONGO_INITDB_ROOT_PASSWORD` in this `.env`.
+Choose your own credentials and keep the file out of Git. This file configures
+MongoDB separately from the application's root `.env`.
+Compose rejects empty credentials.
+
+Start the database:
+
+```bash
+docker compose up -d
+docker compose ps
+```
+
+MongoDB listens at `127.0.0.1:27038` on the host. The Compose project is named
+`dr-rag`, and database files are stored in its `dr-rag_mongodata` volume.
+The application does not connect to MongoDB yet; processing still returns
+chunks in memory.
+
+To check authentication, run the following from `docker/`, using the username
+you set. Enter the password when prompted:
+
+```bash
+docker compose exec mongodb mongosh --username YOUR_USERNAME --authenticationDatabase admin
+```
+
+Inside the shell, run `db.runCommand({ ping: 1 })`; a ready server returns
+`ok: 1`. Use `exit` to leave. If startup fails, check `docker compose logs mongodb`.
+
+Stop the service with `docker compose down`. The named volume keeps its data.
+Adding `--volumes` deletes that data. Initialization credentials are applied
+only when the volume is empty; editing `.env` does not change an existing user's
+password. Run `cd ..` before starting the API from the repository root.
 
 ## Configuration
 
